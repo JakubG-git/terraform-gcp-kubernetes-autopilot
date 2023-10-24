@@ -28,10 +28,6 @@ variable "gcp_cluster_name" {
     default = "k8s-cluster"
 }
 
-variable "gke_num_nodes" {
-   description = "number of nodes for the GKE cluster"
-   default = 3
-}
 
 variable "machine_type" {
    description = "machine type for the GKE cluster"

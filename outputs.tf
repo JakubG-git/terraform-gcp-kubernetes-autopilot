@@ -13,3 +13,8 @@ output "kubernetes_cluster_uri" {
   description = "Cluster URI"
   
 }
+
+output "region" {
+  value       = var.gcp_region
+  description = "Region"
+}

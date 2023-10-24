@@ -17,9 +17,18 @@ resource "google_compute_subnetwork" "kube-subnet" {
 
 resource "google_dns_managed_zone" "kube-dns-zone" {
   name = "${var.gcp_subdomain}"
-  dns_name = "${var.gcp_subdomain}.${var.gcp_dns_zone}."
+  dns_name = "${var.gcp_subdomain}.${data.google_dns_managed_zone.website_zone.dns_name}"
   description = "Kubernetes DNS zone"
   visibility = "public"
+}
+
+resource "google_dns_record_set" "kube-dns-ns-record" {
+  name = "${var.gcp_subdomain}.${data.google_dns_managed_zone.website_zone.dns_name}"
+  type = "NS"
+  ttl = 300
+  managed_zone = data.google_dns_managed_zone.website_zone.name
+
+  rrdatas = google_dns_managed_zone.kube-dns-zone.name_servers
 }
 
 resource "google_dns_record_set" "kube-dns-record" {
