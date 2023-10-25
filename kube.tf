@@ -12,4 +12,6 @@ resource "google_container_cluster" "primary" {
     enable_autopilot = true
 
     deletion_protection = false
+
+    ip_allocation_policy {}
 }
